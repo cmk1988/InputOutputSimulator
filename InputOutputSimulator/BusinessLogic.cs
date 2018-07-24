@@ -101,11 +101,11 @@ namespace InputOutputSimulator
             var pauseInSchrittenBeiUrlaub = (pausenMinutenBeiUrlaub + 7) / 15;
             if (list.Exists(x => x.What == schule))
             {
-                eintragen(list, urlaub, 0, "{S}");
+                eintragen(list, schule, 0, "{S}");
             }
             if (list.Exists(x => x.What == arbeit))
             {
-                eintragen(list, urlaub, pauseInSchrittenBeiUrlaub, projekt);
+                eintragen(list, arbeit, pauseInSchrittenBeiArbeit, projekt);
             }
             if (list.Exists(x => x.What == ueberstundenabbau))
             {
