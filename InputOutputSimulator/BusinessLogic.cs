@@ -83,9 +83,9 @@ namespace InputOutputSimulator
                 if (b)
                 {
                     if(a.What == arbeit)
-                        pausenMinutenBeiArbeit += (a.M - beginn.M) <= 0 ? (a.H - beginn.H) - (a.M - beginn.M) : (a.M - beginn.M);
+                        pausenMinutenBeiArbeit += (a.M - beginn.M) <= 0 ? (a.H - beginn.H) + (a.M - beginn.M) : (a.M - beginn.M);
                     else if (a.What == urlaub)
-                        pausenMinutenBeiUrlaub += (a.M - beginn.M) <= 0 ? (a.H - beginn.H) - (a.M - beginn.M) : (a.M - beginn.M);
+                        pausenMinutenBeiUrlaub += (a.M - beginn.M) <= 0 ? (a.H - beginn.H) + (a.M - beginn.M) : (a.M - beginn.M);
                     b = false;
                 }
                 else if(a.What == arbeit || a.What == urlaub)
