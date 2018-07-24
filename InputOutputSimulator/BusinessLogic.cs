@@ -101,44 +101,40 @@ namespace InputOutputSimulator
             var pauseInSchrittenBeiUrlaub = (pausenMinutenBeiUrlaub + 7) / 15;
             if (list.Exists(x => x.What == schule))
             {
-                var k = list.FirstOrDefault(x => x.What == schule && x.Act == kommen);
-                var g = list.FirstOrDefault(x => x.What == schule && x.Act == gehen);
-                Class1.ClickFromTo(siebenUhrX, k.RelativeZeilenVonSiebenUhr, g.RelativeZeilenVonSiebenUhr, siebenUhrX, "{S}");
+                eintragen(list, urlaub, 0, "{S}");
             }
             if (list.Exists(x => x.What == arbeit))
             {
-                var k = list.FirstOrDefault(x => x.What == arbeit && x.Act == kommen);
-                var g = list.FirstOrDefault(x => x.What == arbeit && x.Act == gehen);
-                Class1.ClickFromTo(siebenUhrX, k.RelativeZeilenVonSiebenUhr, siebenUhrX, g.RelativeZeilenVonSiebenUhr, projekt);
-                if (pauseInSchrittenBeiArbeit > 0)
-                {
-                    var t = k.RelativeZeilenVonSiebenUhr - g.RelativeZeilenVonSiebenUhr;
-                    var start = k.RelativeZeilenVonSiebenUhr + (t - pauseInSchrittenBeiArbeit) / 2;
-                    var ende = start + k.RelativeZeilenVonSiebenUhr;
-                    Thread.Sleep(100);
-                    Class1.ClickFromTo(siebenUhrX, start, siebenUhrX, ende, "{P}");
-                }
+                eintragen(list, urlaub, pauseInSchrittenBeiUrlaub, projekt);
             }
             if (list.Exists(x => x.What == ueberstundenabbau))
             {
-                var k = list.FirstOrDefault(x => x.What == ueberstundenabbau && x.Act == kommen);
-                var g = list.FirstOrDefault(x => x.What == ueberstundenabbau && x.Act == gehen);
-                Class1.ClickFromTo(siebenUhrX, k.RelativeZeilenVonSiebenUhr, siebenUhrX, g.RelativeZeilenVonSiebenUhr, "{Ü}");
+                eintragen(list, ueberstundenabbau, 0, "{Ü}");
             }
             if (list.Exists(x => x.What == urlaub))
             {
-                var k = list.FirstOrDefault(x => x.What == urlaub && x.Act == kommen);
-                var g = list.FirstOrDefault(x => x.What == urlaub && x.Act == gehen);
-                Class1.ClickFromTo(siebenUhrX, k.RelativeZeilenVonSiebenUhr, siebenUhrX, g.RelativeZeilenVonSiebenUhr, "{U}");
-                if (pauseInSchrittenBeiArbeit > 0)
-                {
-                    var t = k.RelativeZeilenVonSiebenUhr - g.RelativeZeilenVonSiebenUhr;
-                    var start = k.RelativeZeilenVonSiebenUhr + (t - pauseInSchrittenBeiArbeit) / 2;
-                    var ende = start + k.RelativeZeilenVonSiebenUhr;
-                    Thread.Sleep(100);
-                    Class1.ClickFromTo(siebenUhrX, start, siebenUhrX, ende, "{P}");
-                }
+                eintragen(list, urlaub, pauseInSchrittenBeiUrlaub, "{U}");
             }
+        }
+
+        private void eintragen(List<DTO> list, string what, int pauseInSchritten, string key)
+        {
+            var k = list.FirstOrDefault(x => x.What == what && x.Act == kommen);
+            var g = list.FirstOrDefault(x => x.What == what && x.Act == gehen);
+            Class1.ClickFromTo(siebenUhrX, k.RelativeZeilenVonSiebenUhr, siebenUhrX, g.RelativeZeilenVonSiebenUhr, key);
+            if (pauseInSchritten > 0)
+            {
+                pause(k, g, pauseInSchritten);
+            }
+        }
+
+        private void pause(DTO k, DTO g, int pauseInSchritten)
+        {
+            var t = k.RelativeZeilenVonSiebenUhr - g.RelativeZeilenVonSiebenUhr;
+            var start = k.RelativeZeilenVonSiebenUhr + (t - pauseInSchritten) / 2;
+            var ende = start + k.RelativeZeilenVonSiebenUhr;
+            Thread.Sleep(100);
+            Class1.ClickFromTo(siebenUhrX, start*zeilenAbstand, siebenUhrX, ende, "{P}");
         }
     }
 }
