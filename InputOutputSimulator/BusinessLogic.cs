@@ -27,18 +27,18 @@ namespace InputOutputSimulator
         public BusinessLogic(
             int siebenUhrX,
             int siebenUhrY,
-            int zeilenAbstand,
-            string schule,
-            string arbeit,
             string ueberstundenabbau,
-            string urlaub,
-            string kommen,
-            string gehen,
             string pausenbeginn,
             string pausenende,
             string raucherpausebeginn,
             string raucherpauseende,
-            string projekt
+            int zeilenAbstand,
+            string urlaub = "Urlaub",
+            string schule = "Schule",
+            string arbeit = "Arbeit",
+            string kommen = "Kommen",
+            string gehen = "Gehen",
+            string projekt = "{I}"
             )
         {
             this.siebenUhrX = siebenUhrX;
